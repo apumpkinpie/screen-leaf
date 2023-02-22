@@ -1,0 +1,15 @@
+{
+  "name": "screenleaf",
+  "version": "1.0.0",
+  "productName": "screenLeaf",
+  "description": "An app to control more aspects of your monitor.",
+  "main": "main.js",
+  "author": "pumpkinpie",
+    "scripts": {
+    "start": "electron ."
+  },
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^23.1.0"
+  }
+}
