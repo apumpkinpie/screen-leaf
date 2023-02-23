@@ -1,4 +1,4 @@
-# Screen Lead
+# Screen Leaf
 
 An app designed to give you more control over your monitors. Made with Electron.
 

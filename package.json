@@ -2,7 +2,7 @@
   "name": "screenleaf",
   "version": "1.0.0",
   "productName": "screenLeaf",
-  "description": "An app to control more aspects of your monitor.",
+  "description": "An app designed to give you more control over your monitors.",
   "main": "main.js",
   "author": "pumpkinpie",
     "scripts": {
