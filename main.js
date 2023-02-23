@@ -29,7 +29,7 @@ const createMainWindow = function () {
         title: "Screen Leaf",
         width: 640,
         height: 480,
-        dir: "./renderer/index.html",
+        dir: "./renderer/homepage/index.html",
         isMainWindow: true,
     });
 };
