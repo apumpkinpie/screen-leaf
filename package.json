@@ -9,7 +9,7 @@
     "start": "electron ."
   },
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "electron": "^23.1.0"
   }
 }

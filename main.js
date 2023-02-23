@@ -1,28 +1,46 @@
-const path = require("path");
+// Main specified in package.json controls the main process.
+
 const { app, BrowserWindow, Menu } = require("electron");
+const path = require("path");
 
 const isMac = process.platform === "darwin";
 const isDev = process.env.NODE_DEV !== "production";
 
-const createMainWindow = function () {
-    const mainWindow = new BrowserWindow({
-        title: "Screen Leaf",
-        width: isDev ? 1280 : 640,
-        height: 480,
+const createWindow = function ({
+    title = "",
+    width = 320,
+    height = 240,
+    dir = "./renderer/placeholder.index",
+    isMainWindow = false,
+}) {
+    const window = new BrowserWindow({
+        title: title,
+        width: isDev ? width * 2 : width,
+        height: height,
     });
 
-    if (isDev) mainWindow.webContents.openDevTools();
-    mainWindow.loadFile(path.join(__dirname, "./renderer/index.html"));
+    if (isDev && isMainWindow)
+        window.webContents.openDevTools();
+    window.loadFile(path.join(__dirname, dir));
+};
+
+const createMainWindow = function () {
+    createWindow({
+        title: "Screen Leaf",
+        width: 640,
+        height: 480,
+        dir: "./renderer/index.html",
+        isMainWindow: true,
+    });
 };
 
 const createAboutWindow = function () {
-    const aboutWindow = new BrowserWindow({
+    createWindow({
         title: "About",
         width: 320,
         height: 240,
+        dir: "./renderer/about.html",
     });
-
-    aboutWindow.loadFile(path.join(__dirname, "./renderer/about.html"));
 };
 
 app.whenReady().then(() => {
@@ -33,7 +51,7 @@ app.whenReady().then(() => {
             label: app.name,
             submenu: [{
                 label: 'About',
-                click: createAboutWindow,
+                click: () => createAboutWindow(),
             }]
         }] : []),
         {
@@ -43,7 +61,7 @@ app.whenReady().then(() => {
             label: "Help",
             submenu: [{
                 label: 'About',
-                click: createAboutWindow
+                click: () => createAboutWindow(),
             }]
         }] : []),
     ];
