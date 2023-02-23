@@ -2,14 +2,17 @@
   "name": "screenleaf",
   "version": "1.0.0",
   "productName": "screenLeaf",
-  "description": "An app designed to give you more control over your monitors.",
+  "description": "A desktop app designed to give you more control over your monitors.",
   "main": "main.js",
   "author": "pumpkinpie",
-    "scripts": {
+  "scripts": {
     "start": "electron ."
   },
   "license": "MIT",
   "devDependencies": {
     "electron": "^23.1.0"
+  },
+  "dependencies": {
+    "brightness": "^3.0.0"
   }
 }

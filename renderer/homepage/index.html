@@ -12,11 +12,12 @@
 
 <body>
     <main class="main">
-        <h1 style="background-color: orangered;">Hi World!</h1>
-        <span id="counter">0</span>
-        <button id="main-btn" class="btn">Click</button>
-        <input type="file" id="img-input">
-        <img src="" alt="" id="img-container">
+        <section class="section">
+            <label for="my-range">Choose brightness level</label>
+            <input id="my-range" type="range" min="0" max="100" value="50" class="slider">
+            <p id="current-brightness" class="">50</p>
+            <!-- <button id="btn">Set brightness</button> -->
+        </section>
     </main>
 </body>
 

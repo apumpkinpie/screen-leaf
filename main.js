@@ -1,7 +1,8 @@
 // Main specified in package.json controls the main process.
 
-const { app, BrowserWindow, Menu } = require("electron");
+const { app, BrowserWindow, Menu, ipcMain } = require("electron");
 const path = require("path");
+const setBrightness = require('brightness').set;
 
 const isMac = process.platform === "darwin";
 const isDev = process.env.NODE_DEV !== "production";
@@ -11,7 +12,6 @@ const createWindow = function ({
     width = 320,
     height = 240,
     dir = "./renderer/placeholder.index",
-    isMainWindow = false,
 }) {
     const window = new BrowserWindow({
         title: title,
@@ -19,19 +19,22 @@ const createWindow = function ({
         height: height,
     });
 
-    if (isDev && isMainWindow)
-        window.webContents.openDevTools();
     window.loadFile(path.join(__dirname, dir));
 };
 
 const createMainWindow = function () {
-    createWindow({
-        title: "Screen Leaf",
-        width: 640,
+    const window = new BrowserWindow({
+        title: "Screen leaf",
+        width: isDev ? 640 * 2 : 640,
         height: 480,
-        dir: "./renderer/homepage/index.html",
-        isMainWindow: true,
+        webPreferences: {
+            preload: path.join(__dirname, './IPC/preload.js')
+        }
     });
+
+    if (isDev)
+        window.webContents.openDevTools();
+    window.loadFile(path.join(__dirname, 'renderer/homepage/index.html'));
 };
 
 const createAboutWindow = function () {
@@ -39,11 +42,16 @@ const createAboutWindow = function () {
         title: "About",
         width: 320,
         height: 240,
-        dir: "./renderer/about.html",
+        dir: "./renderer/about/about.html",
     });
 };
 
+
+
 app.whenReady().then(() => {
+    ipcMain.on('set-brightness', (_, brightness) => {
+        setBrightness(brightness);
+    });
     createMainWindow();
     // prettier-ignore
     const menuOptions = [
